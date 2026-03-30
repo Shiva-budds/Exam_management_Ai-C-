@@ -1,0 +1,62 @@
+<div class="signup-container">
+  <h2>Sign Up</h2>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input id="fullName" type="text" formControlName="fullName" class="form-control">
+      <div *ngIf="signupForm.get('fullName')?.invalid && (signupForm.get('fullName')?.dirty || signupForm.get('fullName')?.touched)" class="alert alert-danger">
+        Full name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input id="phoneNumber" type="text" formControlName="phoneNumber" class="form-control">
+      <div *ngIf="signupForm.get('phoneNumber')?.invalid && (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched)" class="alert alert-danger">
+        <div *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">
+          Phone number is required.
+        </div>
+        <div *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">
+          Please enter a valid 10-digit phone number.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" class="form-control">
+      <div *ngIf="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)" class="alert alert-danger">
+        <div *ngIf="signupForm.get('password')?.errors?.['required']">
+          Password is required.
+        </div>
+        <div *ngIf="signupForm.get('password')?.errors?.['minLength']">
+          Password must be at least 6 characters long.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Role</label>
+      <div class="form-check">
+        <input id="roleTeacher" type="radio" formControlName="role" class="form-check-input" value="Teacher">
+        <label for="roleTeacher" class="form-check-label">Teacher</label>
+      </div>
+      <div class="form-check">
+        <input id="roleStudent" type="radio" formControlName="role" class="form-check-input" value="Student">
+        <label for="roleStudent" class="form-check-label">Student</label>
+      </div>
+      <div *ngIf="signupForm.get('role')?.invalid && (signupForm.get('role')?.dirty || signupForm.get('role')?.touched)" class="alert alert-danger">
+        Role is required.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="signupForm.invalid" class="btn btn-primary">Sign Up</button>
+
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

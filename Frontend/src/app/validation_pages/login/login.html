@@ -1,0 +1,40 @@
+
+
+
+<div class="login-container">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input id="phoneNumber" type="text" formControlName="phoneNumber" class="form-control">
+      <div *ngIf="loginForm.get('phoneNumber')?.invalid && (loginForm.get('phoneNumber')?.dirty || loginForm.get('phoneNumber')?.touched)" class="alert alert-danger">
+        <div *ngIf="loginForm.get('phoneNumber')?.errors?.['required']">
+          Phone number is required.
+        </div>
+        <div *ngIf="loginForm.get('phoneNumber')?.errors?.['pattern']">
+          Please enter a valid 10-digit phone number.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" class="form-control">
+      <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="alert alert-danger">
+        <div *ngIf="loginForm.get('password')?.errors?.['required']">
+          Password is required.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="userNotFound" class="mt-3">
+      <p>Don't have an account? <a routerLink="/signup">Create one here.</a></p>
+    </div>
+  </form>
+</div>
