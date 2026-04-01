@@ -6,6 +6,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 // ADD these two:
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { User } from '../login_interface';
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -26,45 +30,39 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Assuming 10 digit phone number
-      password: ['', Validators.required]
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // camelCase, standard for Angular form controls
+      password: ['', Validators.required]                                        // camelCase, standard for Angular form controls
     });
   }
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      return;    }
-
-    const credentials = {
-      phoneNumber: this.loginForm.value.phoneNumber.trim(),
-      password: this.loginForm.value.password.trim(),
-      fullName: '', // Required by user interface
-      role: ''      // Required by user interface
-    
+      return;
     }
-
-    this.errorMessage = null;
-    this.userNotFound = false;
-
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (response) => {
-        console.log('Login successful', response);
-        // Here you would typically save the user token and navigate
-        // For example: localStorage.setItem('user', JSON.stringify(response));
-        this.router.navigate(['/dashboard']); // Navigate to a protected route
-      },
-      error: (err: HttpErrorResponse) => {
-        if (err.status === 404) { 
-          this.errorMessage = 'User with this phone number was not found.';
-          this.userNotFound = true;
-        } else if (err.status === 400) {
-            this.errorMessage = 'Invalid password. Please try again.';
+    console.log("Form submitted");
+    let userData: User = {
+      PhoneNumber: this.loginForm.value.phoneNumber.trim(),
+      Password: this.loginForm.value.password.trim(),
+      FullName: '', // Default empty as per interface
+      Role: ''      // Default empty as per interface
+    };
+    // The following check is redundant due to Validators.required and the initial this.loginForm.invalid check.
+    // if(userData.PhoneNumber != "" && userData.Password != "") {
+      this.authService.login(userData).subscribe({
+        next: (response) => {
+          console.log('Login successful:', response);
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Login failed:', error);
+          if (error.status === 404) {
+            this.userNotFound = true;
+            this.errorMessage = 'User not found. Please check your phone number.';
+          } else {
+            this.errorMessage = 'An error occurred during login. Please try again later.';
+          }
         }
-        else {
-          this.errorMessage = 'An unexpected error occurred. Please try again.';
-        }
-        console.error('Login failed', err);
-      }
-    });
+      })
+    // }
   }
 }
