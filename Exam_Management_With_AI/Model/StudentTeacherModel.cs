@@ -18,5 +18,4 @@ public class StudentTeacherModel
     public string Status{get; set;} = string.Empty;
     [Required]
     public string CreatedAt{get; set;} = string.Empty;
-    
 }

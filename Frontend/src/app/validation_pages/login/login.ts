@@ -48,21 +48,25 @@ export class LoginComponent implements OnInit {
     };
     // The following check is redundant due to Validators.required and the initial this.loginForm.invalid check.
     // if(userData.PhoneNumber != "" && userData.Password != "") {
-      this.authService.login(userData).subscribe({
-        next: (response) => {
-          console.log('Login successful:', response);
-          this.router.navigate(['/dashboard']);
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error('Login failed:', error);
-          if (error.status === 404) {
-            this.userNotFound = true;
-            this.errorMessage = 'User not found. Please check your phone number.';
-          } else {
-            this.errorMessage = 'An error occurred during login. Please try again later.';
-          }
+    this.authService.login(userData).subscribe({
+      next: (response) => {
+        // console.log('Login successful:', response);
+
+        // Inside your login component/service after success
+        // Inside your login component/service after success
+        localStorage.setItem('currentUser', JSON.stringify(response));
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Login failed:', error);
+        if (error.status === 404) {
+          this.userNotFound = true;
+          this.errorMessage = 'User not found. Please check your phone number.';
+        } else {
+          this.errorMessage = 'An error occurred during login. Please try again later.';
         }
-      })
+      }
+    })
     // }
   }
 }

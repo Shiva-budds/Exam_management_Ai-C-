@@ -91,5 +91,15 @@ namespace Exam_Management_With_AI.Controller
             Console.WriteLine("hello this is another degubber 44");
             return BadRequest("Invalid password.");
         }
+        [HttpGet("{phoneNumber}")]
+        public async Task<ActionResult<UserModel>> GetUserByPhoneNumber(string phoneNumber)
+        {
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
+            if(user == null)
+            {
+                return NotFound("User not found.");
+            }
+            return Ok(user);
+        }
     }
 }

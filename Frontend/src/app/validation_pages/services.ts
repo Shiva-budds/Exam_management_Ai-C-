@@ -46,4 +46,12 @@ export class Services {
     console.error(errorMessage); // Log the detailed error to console
     return throwError(() => new Error(errorMessage));
   }
+  public getCurrentUser(){
+    const user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
+  }
+  getbyphonenumber(phoneNumber: string){
+    return this.http.get<User>(`${this.apiUrl}/${phoneNumber}`);
+  }
+  
 }
