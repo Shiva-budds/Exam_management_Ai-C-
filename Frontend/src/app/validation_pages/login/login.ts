@@ -17,7 +17,7 @@ import { User } from '../login_interface';
   styleUrls: ['./login.css'],           // ← was './login.component.css'
   imports: [CommonModule, ReactiveFormsModule]   // ← ADD this
 })
-export class LoginComponent implements OnInit {
+export class Login implements OnInit {
   loginForm!: FormGroup;
   errorMessage: string | null = null;
   userNotFound = false;

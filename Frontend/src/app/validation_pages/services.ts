@@ -5,9 +5,15 @@ import { catchError } from 'rxjs/operators';
 import { UserRegistration } from '../validation_pages/validation_interface'; // Updated import
 import {User} from '../validation_pages/login_interface';
 
+export interface TeacherReaquest {
+  userid:number;
+  teacherid:number;
+}
+
 @Injectable({
   providedIn: 'root' 
 })
+
 export class Services {
   
   private apiUrl = 'http://localhost:5141/api/User'; 
@@ -53,5 +59,7 @@ export class Services {
   getbyphonenumber(phoneNumber: string){
     return this.http.get<User>(`${this.apiUrl}/${phoneNumber}`);
   }
-  
+  sent_teacherrequest(credentials:TeacherReaquest){
+    return this.http.post<TeacherReaquest>(`${this.apiUrl}/teacherrequest`, credentials)
+  }
 }
