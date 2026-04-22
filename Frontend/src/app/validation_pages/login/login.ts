@@ -27,14 +27,12 @@ export class Login implements OnInit {
     private authService: Services,
     private router: Router
   ) { }
-
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // camelCase, standard for Angular form controls
       password: ['', Validators.required]                                        // camelCase, standard for Angular form controls
     });
   }
-
   onSubmit(): void {
     if (this.loginForm.invalid) {
       return;
