@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Exam_Management_With_AI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c169029d31483012ddef5a12ed2afbc2ad9580de")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3ca21542d3fb0c2e141b9514f8f2bcd7aab4f00")]
 [assembly: System.Reflection.AssemblyProductAttribute("Exam_Management_With_AI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Exam_Management_With_AI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

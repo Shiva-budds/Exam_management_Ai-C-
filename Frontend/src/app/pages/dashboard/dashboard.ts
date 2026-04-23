@@ -15,6 +15,7 @@ export class Dashboard {
   searchedTeacher_id = signal<number | null>(null);
   currentUser: any;
   searchQuery: string = 'er';
+
   constructor(private services: Services) { }
   ngOnInit(): void {
     this.currentUser = this.services.getCurrentUser();

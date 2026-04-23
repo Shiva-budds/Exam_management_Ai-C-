@@ -2,7 +2,8 @@
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/">Online Exam</a>
     <div class="ms-auto">
-      <ul class="navbar-nav flex-row">
+      @if(!user){
+        <ul class="navbar-nav flex-row">
         <li class="nav-item me-3">
           <a class="nav-link" routerLink="login">Login</a>
         </li>
@@ -10,8 +11,12 @@
           <a class="nav-link" routerLink="signup">Sign Up</a>
         </li>
       </ul>
+      }@else{
+         <li class="nav-item">
+          <a ><button (click)="logout()">Logout</button></a>
+        </li>
+      }
     </div> 
   </div>
 </nav>
-
 <router-outlet></router-outlet>
